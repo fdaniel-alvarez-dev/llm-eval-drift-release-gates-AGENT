@@ -15,6 +15,13 @@ source .venv/bin/activate
 pip install -e ".[dev]"
 ```
 
+If you are working in a restricted or offline environment where build isolation cannot download build dependencies, use:
+
+```bash
+pip install hatchling
+pip install -e ".[dev]" --no-build-isolation
+```
+
 Run an evaluation (writes `eval_report.json` in the repo root by default):
 
 ```bash
