@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/llm-eval-drift-release-gates/report.schema.json",
+  "title": "LLM Eval Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "meta", "cases", "summary"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tool_name", "tool_version", "dataset_path", "dataset_sha256", "run_utc"],
+      "properties": {
+        "tool_name": { "type": "string" },
+        "tool_version": { "type": "string" },
+        "dataset_path": { "type": "string" },
+        "dataset_sha256": { "type": "string" },
+        "run_utc": { "type": "string" }
+      }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "intent",
+          "question",
+          "context",
+          "expected_points",
+          "must_refuse",
+          "answer",
+          "citations",
+          "latency_ms",
+          "latency_source",
+          "cost_per_answer",
+          "scores",
+          "safety_flags"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "intent": { "type": "string" },
+          "question": { "type": "string" },
+          "context": { "type": "string" },
+          "expected_points": { "type": "array", "items": { "type": "string" } },
+          "must_refuse": { "type": "boolean" },
+          "answer": { "type": "string" },
+          "citations": { "type": "array", "items": { "type": "string" } },
+          "latency_ms": { "type": "number", "minimum": 0 },
+          "latency_source": { "type": "string", "enum": ["synthetic", "measured"] },
+          "cost_per_answer": { "type": "number", "minimum": 0 },
+          "scores": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["correctness", "groundedness"],
+            "properties": {
+              "correctness": { "type": "number", "minimum": 0, "maximum": 1 },
+              "groundedness": { "type": "number", "minimum": 0, "maximum": 1 }
+            }
+          },
+          "safety_flags": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_count",
+        "overall_score",
+        "avg_correctness",
+        "avg_groundedness",
+        "safety_violation_rate",
+        "latency_p50_ms",
+        "latency_p95_ms",
+        "cost_per_answer_avg"
+      ],
+      "properties": {
+        "case_count": { "type": "integer", "minimum": 1 },
+        "overall_score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "avg_correctness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "avg_groundedness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "safety_violation_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+        "latency_p50_ms": { "type": "number", "minimum": 0 },
+        "latency_p95_ms": { "type": "number", "minimum": 0 },
+        "cost_per_answer_avg": { "type": "number", "minimum": 0 }
+      }
+    }
+  }
+}
+

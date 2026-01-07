@@ -1,0 +1,30 @@
+.venv/
+venv/
+env/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.coverage
+htmlcov/
+
+# Environment files (never commit secrets)
+.env
+.env.*
+
+# Local reports and artifacts
+eval_report.json
+drift_report.json
+drift_report.md
+metrics.prom
+
+# Requested: keep local agent/docs out of git
+AGENT.md
+NODES5_7_Branding_PostHog.docx

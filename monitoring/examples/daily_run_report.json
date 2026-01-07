@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "meta": {
+    "tool_name": "llm-eval-drift-release-gates",
+    "tool_version": "0.1.0",
+    "dataset_path": "eval/datasets/golden_set.jsonl",
+    "dataset_sha256": "example",
+    "run_utc": "2026-01-07T00:00:00+00:00"
+  },
+  "cases": [
+    {
+      "id": "example_001",
+      "intent": "summarization",
+      "question": "Summarize the change.",
+      "context": "We added caching for user preferences to reduce dashboard load time.",
+      "expected_points": ["caching", "dashboard load time"],
+      "must_refuse": false,
+      "answer": "Summary: caching; dashboard load time.",
+      "citations": ["caching for user preferences"],
+      "latency_ms": 80.0,
+      "latency_source": "synthetic",
+      "cost_per_answer": 0.000001,
+      "scores": { "correctness": 1.0, "groundedness": 1.0 },
+      "safety_flags": []
+    }
+  ],
+  "summary": {
+    "case_count": 1,
+    "overall_score": 1.0,
+    "avg_correctness": 1.0,
+    "avg_groundedness": 1.0,
+    "safety_violation_rate": 0.0,
+    "latency_p50_ms": 80.0,
+    "latency_p95_ms": 80.0,
+    "cost_per_answer_avg": 0.000001
+  }
+}
+
